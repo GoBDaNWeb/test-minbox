@@ -1,0 +1,25 @@
+.button
+    font-size: 1rem
+    text-align: center
+    transition: all var(--trs)
+    padding: .25rem .75rem
+    cursor: pointer
+    white-space: nowrap
+    &:disabled
+        opacity: .5
+        pointer-events: none
+.button.outline
+    border: 1px solid var(--gray-color)
+    border-radius: var(--rounded-sm)
+    background: none 
+.button.fill
+    border: 1px solid var(--gray-color)
+    border-radius: var(--rounded-sm)
+    background: var(--soft-gray-color)
+    &:hover
+        background: var(--white-color)
+.button.active
+    background: var(--sky-color)
+    border: 1px solid var(--sky-color)
+
+    color: var(--white-color)
