@@ -14,10 +14,15 @@ describe("TaskCard Component", () => {
 
   taskStore.addTask(taskItem);
 
+  const handleFilterTaskList = jest.fn();
+
   it("рендер компонента с текстом", () => {
     render(
       <RootStoreContext.Provider value={new RootStore()}>
-        <TaskCard taskItem={taskItem} />
+        <TaskCard
+          handleFilterTaskList={handleFilterTaskList}
+          taskItem={taskItem}
+        />
       </RootStoreContext.Provider>
     );
     expect(screen.getByText("Task 1")).toBeInTheDocument();
@@ -26,7 +31,10 @@ describe("TaskCard Component", () => {
   it("рендер компонента с правильным отображением defaultChecked", () => {
     render(
       <RootStoreContext.Provider value={new RootStore()}>
-        <TaskCard taskItem={taskItem} />
+        <TaskCard
+          handleFilterTaskList={handleFilterTaskList}
+          taskItem={taskItem}
+        />
       </RootStoreContext.Provider>
     );
     const checkbox = screen.getByRole("checkbox");
@@ -38,7 +46,10 @@ describe("TaskCard Component", () => {
   it("обновление localStorage когда вызывается 'toggleCompleted'", () => {
     render(
       <RootStoreContext.Provider value={new RootStore()}>
-        <TaskCard taskItem={taskItem} />
+        <TaskCard
+          handleFilterTaskList={handleFilterTaskList}
+          taskItem={taskItem}
+        />
       </RootStoreContext.Provider>
     );
     const checkbox = screen.getByRole("checkbox");

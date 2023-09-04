@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 
 import { ITask } from "shared/types/task.interface";
@@ -16,11 +16,7 @@ const TaskList = () => {
 
   const [taskList, setTaskList] = useState<ITask[]>(task.taskList);
 
-  useEffect(() => {
-    setTaskList(task.taskList);
-  }, [task.taskList]);
-
-  useEffect(() => {
+  const handleFilterTaskList = useCallback(() => {
     if (task.filterType === "all") {
       const filteredTask = task.taskList.filter((task) => {
         return task;
@@ -39,6 +35,14 @@ const TaskList = () => {
     }
   }, [task.filterType, task.taskList]);
 
+  useEffect(() => {
+    setTaskList(task.taskList);
+  }, [task.taskList]);
+
+  useEffect(() => {
+    handleFilterTaskList();
+  }, [task.filterType, task.taskList, handleFilterTaskList]);
+
   return (
     <div className={styles.taskList}>
       <div className={styles.taskListContent}>
@@ -48,7 +52,11 @@ const TaskList = () => {
           {taskList.length > 0 ? (
             <>
               {taskList.map((taskItem) => (
-                <TaskCard key={taskItem.id} taskItem={taskItem} />
+                <TaskCard
+                  key={taskItem.id}
+                  taskItem={taskItem}
+                  handleFilterTaskList={handleFilterTaskList}
+                />
               ))}
             </>
           ) : (

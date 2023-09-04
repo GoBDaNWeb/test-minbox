@@ -7,13 +7,14 @@ import { useStores } from "shared/context";
 
 import styles from "./styles.module.sass";
 
-const TaskCard: FC<ITaskCardProps> = ({ taskItem }) => {
+const TaskCard: FC<ITaskCardProps> = ({ taskItem, handleFilterTaskList }) => {
   const { id, text } = taskItem;
 
   const { task } = useStores();
 
   const handleChangeCompleted = () => {
     task.toggleCompleted(id);
+    handleFilterTaskList();
     localStorage.setItem("taskList", JSON.stringify(task.taskList));
   };
 
